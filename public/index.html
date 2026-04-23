@@ -9,16 +9,12 @@
 <link rel="stylesheet" href="colors_and_type.css" />
 <link rel="stylesheet" href="bar.css" />
 <style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: var(--hl-navy);
-  }
+  html, body { margin: 0; padding: 0; background: var(--hl-navy); }
   /* Iframe-friendly: full-width, no artboard wrapper */
   body { overflow-x: hidden; }
   .page-wrap { width: 100%; max-width: 1440px; margin: 0 auto; }
+  /* Hide nav/footer since this is embedded in Webflow which has its own */
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@iframe-resizer/child@5.3.2"></script>
 </head>
 <body>
 
@@ -40,8 +36,8 @@
       </div>
       <p class="hero-sub">Buy the bar. Be a hero. Chicago's only live lobster-roll bar, rolled up to your space — premium Maine lobster, buttered brioche, zero pretense.</p>
       <div class="hero-ctas">
-        <a class="bar-btn bar-btn-primary" href="#inquiry">Book the bar →</a>
-        <a class="bar-btn bar-btn-ghost" href="#how">See how it works</a>
+        <a class="bar-btn bar-btn-primary" href="#inquiry" onclick="return scrollToSection('inquiry', event)">Book the bar →</a>
+        <a class="bar-btn bar-btn-ghost" href="#how" onclick="return scrollToSection('how', event)">See how it works</a>
       </div>
     </div>
     <div class="hero-img">
@@ -82,7 +78,7 @@
       <h2>It's not catering.<em>It's a scene.</em></h2>
       <p>We roll up with the bar — burners, buns, buttered lobster, the works — and serve your guests one at a time, at the window, like we're parked outside.</p>
       <p>No trays sweating in a corner. No sad sliders on a buffet line. Just your people, in line, watching their roll get dressed. That's the whole thing.</p>
-      <a class="bar-btn bar-btn-secondary" href="#inquiry" style="margin-top: 12px">Request a quote</a>
+      <a class="bar-btn bar-btn-secondary" href="#inquiry" onclick="return scrollToSection('inquiry', event)" style="margin-top: 12px">Request a quote</a>
     </div>
     <div class="photo-stack">
       <div class="p1"><img src="assets/photo-sf-event.jpg" alt="Happy Lobster Bar setup with awning and checkered tablecloth" /></div>
@@ -248,6 +244,30 @@
 </div> <!-- /.page-wrap -->
 
 <script>
+  // Scroll helper — when embedded in an iframe with scrolling disabled, we can't scroll
+  // to anchors internally. Instead, we calculate the target's position and tell the
+  // parent Webflow page to scroll there via postMessage.
+  function scrollToSection(id, event) {
+    if (event) event.preventDefault();
+    const target = document.getElementById(id);
+    if (!target) return false;
+
+    // How many pixels from the top of the iframe is the target element?
+    const offsetInIframe = target.getBoundingClientRect().top + window.scrollY;
+
+    // Tell the parent page: "scroll me to this Y-offset (plus iframe's own top position)"
+    if (window.parent !== window) {
+      window.parent.postMessage({
+        type: 'hl-bar-scroll',
+        offset: offsetInIframe
+      }, '*');
+    } else {
+      // Not in an iframe (e.g. viewing Vercel directly) — just scroll normally
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    return false;
+  }
+
   // Mailto submission: gathers form fields and opens the user's email client with a pre-filled message
   function submitInquiry(e) {
     e.preventDefault();
@@ -282,6 +302,10 @@
     window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     return false;
   }
+</script>
+
+</body>
+</html>
 </script>
 
 </body>
