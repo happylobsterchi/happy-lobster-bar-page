@@ -1,0 +1,10 @@
+{
+  "name": "happy-lobster-bar-page",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Happy Lobster Bar landing page — static HTML served from /public, embedded as an iframe on happylobsterchicago.com/the-bar",
+  "scripts": {
+    "dev": "npx serve public",
+    "build": "echo 'Static site — nothing to build'"
+  }
+}
