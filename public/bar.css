@@ -271,8 +271,8 @@ button { font: inherit; }
   .dirA .hero-meta { gap: 8px; margin-bottom: 20px; }
   .dirA .hero-meta .pill { font-size: 10px; padding: 5px 10px; letter-spacing: .14em; }
   .dirA .hero-word { font-size: clamp(48px, 15vw, 72px); line-height: .9; }
-  /* Bar script — no longer absolute, flows naturally below */
-  .dirA .hero-script { position: static; font-size: clamp(56px, 18vw, 88px); display: block; transform: rotate(-4deg); margin: 4px 0 0 40%; line-height: 1; }
+  /* Bar script — pulled up under LOBSTER with negative margin to sit tight against the wordmark */
+  .dirA .hero-script { position: static; font-size: clamp(64px, 20vw, 96px); display: block; transform: rotate(-4deg); margin: -0.35em 0 0 38%; line-height: 1; }
   .dirA .hero-sub { font-size: 17px; margin: 32px 0 24px; max-width: 100%; line-height: 1.45; }
   .dirA .hero-ctas { gap: 10px; }
   .dirA .hero-ctas .bar-btn { padding: 14px 22px; font-size: 12px; }
@@ -290,8 +290,11 @@ button { font: inherit; }
   .dirA .what-grid { grid-template-columns: 1fr; gap: 48px; }
   .dirA .what h2 { font-size: clamp(36px, 9vw, 54px); line-height: .95; margin: 0 0 20px; }
   .dirA .what p { font-size: 17px; line-height: 1.5; margin: 0 0 16px; }
-  .dirA .what .photo-stack { aspect-ratio: 5/4; max-width: 100%; }
-  .dirA .what .photo-stack .tag { font-size: 10px; padding: 6px 12px; bottom: -10px; left: 30%; }
+  /* Photo stack — stack vertically on mobile, each photo full-width with spacing */
+  .dirA .what .photo-stack { position: static; aspect-ratio: auto; display: flex; flex-direction: column; gap: 20px; margin-top: 8px; }
+  .dirA .what .photo-stack .p1 { position: static; width: 100%; aspect-ratio: 4/5; max-height: 460px; }
+  .dirA .what .photo-stack .p2 { position: static; width: 100%; aspect-ratio: 4/3; max-height: 320px; margin-top: 0; }
+  .dirA .what .photo-stack .tag { position: static; align-self: flex-end; margin-top: -30px; margin-right: 12px; z-index: 5; font-size: 10px; padding: 6px 12px; }
 
   /* ---------- STATS ---------- */
   .dirA .stats { padding: 40px 0; }
@@ -342,7 +345,7 @@ button { font: inherit; }
 @media (max-width: 400px) {
   .bar-wrap { padding: 0 16px; }
   .dirA .hero-word { font-size: clamp(44px, 14vw, 64px); }
-  .dirA .hero-script { font-size: clamp(52px, 16vw, 78px); margin-left: 35%; }
+  .dirA .hero-script { font-size: clamp(58px, 18vw, 84px); margin: -0.32em 0 0 34%; }
   .dirA .stat .num { font-size: 34px; }
   .dirA .stats-grid { gap: 0 20px !important; }
 }
