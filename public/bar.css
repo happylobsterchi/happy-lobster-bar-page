@@ -271,8 +271,11 @@ button { font: inherit; }
   .dirA .hero-meta { gap: 8px; margin-bottom: 20px; }
   .dirA .hero-meta .pill { font-size: 10px; padding: 5px 10px; letter-spacing: .14em; }
   .dirA .hero-word { font-size: clamp(48px, 15vw, 72px); line-height: .9; }
-  /* Bar script — pulled up under LOBSTER with negative margin to sit tight against the wordmark */
-  .dirA .hero-script { position: static; font-size: clamp(64px, 20vw, 96px); display: block; transform: rotate(-4deg); margin: -0.35em 0 0 38%; line-height: 1; }
+  /* Bar script — pulled up under LOBSTER with negative margin, anchored from right (under the E) */
+  .dirA .hero-lockup { position: relative; display: block; }
+  .dirA .hero-script { position: absolute; font-size: clamp(64px, 20vw, 96px); transform: rotate(-4deg); right: 4%; bottom: -0.2em; line-height: 1; z-index: 3; }
+  /* Add bottom padding to lockup so the absolutely-positioned Bar script doesn't overlap hero-sub */
+  .dirA .hero-lockup { padding-bottom: 0.5em; }
   .dirA .hero-sub { font-size: 17px; margin: 32px 0 24px; max-width: 100%; line-height: 1.45; }
   .dirA .hero-ctas { gap: 10px; }
   .dirA .hero-ctas .bar-btn { padding: 14px 22px; font-size: 12px; }
@@ -345,7 +348,7 @@ button { font: inherit; }
 @media (max-width: 400px) {
   .bar-wrap { padding: 0 16px; }
   .dirA .hero-word { font-size: clamp(44px, 14vw, 64px); }
-  .dirA .hero-script { font-size: clamp(58px, 18vw, 84px); margin: -0.32em 0 0 34%; }
+  .dirA .hero-script { font-size: clamp(58px, 18vw, 84px); right: 2%; }
   .dirA .stat .num { font-size: 34px; }
   .dirA .stats-grid { gap: 0 20px !important; }
 }
