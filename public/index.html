@@ -201,6 +201,7 @@
     <!-- Inquiry form — submits to Formspree, which emails hello@happylobsterchicago.com -->
     <form class="form dirA" id="inquiry-form" action="https://formspree.io/f/mwvayqvv" method="POST">
       <input type="hidden" name="_subject" value="New Bar inquiry from happylobsterchicago.com" />
+      <input type="hidden" name="_next" value="https://happy-lobster-bar-page.vercel.app/thanks.html" />
       <div class="form-grid">
         <div class="field"><label>Your name</label><input type="text" name="name" id="f-name" placeholder="Alex Thompson" required /></div>
         <div class="field"><label>Company / Host</label><input type="text" name="company" id="f-company" placeholder="Acme Inc." /></div>
