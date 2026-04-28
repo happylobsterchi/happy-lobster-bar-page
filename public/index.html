@@ -76,8 +76,8 @@
     <div>
       <div class="bar-eyebrow">What the Bar is</div>
       <h2>It's not catering.<em>It's a scene.</em></h2>
-      <p>We roll in with the whole bar — griddle, buns, buttered lobster, the works — and build every roll to order, right in front of your guests.</p>
-      <p>No trays sweating in a corner. No sad sliders on a buffet line. Just fresh lobster rolls and happy people.</p>
+      <p>We set up the bar on-site — buttered buns, Maine lobster, the works — and serve your guests one at a time, each roll built right in front of them.</p>
+      <p>No trays sweating in a corner. No sad sliders on a buffet line. Just your people, in line, watching their roll get dressed. That's the whole thing.</p>
       <a class="bar-btn bar-btn-secondary" href="#inquiry" onclick="return scrollToSection('inquiry', event)" style="margin-top: 12px">Request a quote</a>
     </div>
     <div class="photo-stack">
@@ -151,31 +151,31 @@
     <div class="quotes">
       <div class="quote-card">
         <div class="mark">"</div>
-        <div class="body">Our team still talks about the Happy Lobster Bar. Watching every roll get made in front of you is half the show — the lobster's the other half.</div>
+        <div class="body">Happy Lobster is outstanding!!! We had them cater our wedding welcome party and it was such a hit! People are still talking about the delicious lobster rolls, and even the caviar!</div>
         <div class="by">
-          <div class="avatar">MR</div>
+          <div class="avatar">KR</div>
           <div>
-            <div class="who">Maya R.<div class="role">Head of People, Growth-stage SaaS</div></div>
+            <div class="who">Kaity &amp; Robbie<div class="role">Private wedding · River North</div></div>
           </div>
         </div>
       </div>
       <div class="quote-card">
         <div class="mark">"</div>
-        <div class="body">Booked them for my wedding welcome party and it wiped the floor with the actual dinner. Sorry, caterer.</div>
+        <div class="body">Happy Lobster to cater for my team’s holiday party. Everyone insisted that it will have to be an annual (or more often!) holiday party tradition!</div>
         <div class="by">
-          <div class="avatar">DP</div>
+          <div class="avatar">LH</div>
           <div>
-            <div class="who">David &amp; Priya<div class="role">Private wedding · Logan Square</div></div>
+            <div class="who">Lisa H.<div class="role">Holiday Party · The Loop</div></div>
           </div>
         </div>
       </div>
       <div class="quote-card">
         <div class="mark">"</div>
-        <div class="body">We've hosted them twice. Both times the line was longer than the open bar. That's how you know.</div>
+        <div class="body">We used Happy Lobster on our wedding day. We had our ceremony on a boat in Chicago. Everyone raved about the food.</div>
         <div class="by">
-          <div class="avatar">JL</div>
+          <div class="avatar">AK</div>
           <div>
-            <div class="who">Jordan L.<div class="role">Office Manager, West Loop HQ</div></div>
+            <div class="who">Adam K.<div class="role">Private wedding · On a Boat!</div></div>
           </div>
         </div>
       </div>
@@ -191,17 +191,15 @@
       <h2>Let's get you a lobster guy.</h2>
       <p>Tell us about your event. We'll come back with a quote, a menu, and a plan — usually before the end of the day.</p>
       <div class="contacts">
-        <div class="row"><span class="lbl">Call</span>(312) 555-0212</div>
+     
         <div class="row"><span class="lbl">Email</span>hello@happylobsterchicago.com</div>
-        <div class="row"><span class="lbl">Hours</span>Mon–Fri · 9a–6p CT</div>
-        <div class="row"><span class="lbl">Lead time</span>3–4 weeks preferred</div>
+
+        <div class="row"><span class="lbl">Lead time</span>1 week preferred</div>
       </div>
     </div>
 
-    <!-- Inquiry form — submits to Formspree, which emails hello@happylobsterchicago.com -->
-    <form class="form dirA" id="inquiry-form" action="https://formspree.io/f/mwvayqvv" method="POST">
-      <input type="hidden" name="_subject" value="New Bar inquiry from happylobsterchicago.com" />
-      <input type="hidden" name="_next" value="https://happy-lobster-bar-page.vercel.app/thanks.html" />
+    <!-- Inquiry form — uses mailto: to open the user's email client with pre-filled body -->
+    <form class="form dirA" id="inquiry-form" onsubmit="return submitInquiry(event)">
       <div class="form-grid">
         <div class="field"><label>Your name</label><input type="text" name="name" id="f-name" placeholder="Alex Thompson" required /></div>
         <div class="field"><label>Company / Host</label><input type="text" name="company" id="f-company" placeholder="Acme Inc." /></div>
@@ -270,7 +268,44 @@
     return false;
   }
 
-  // Mailto submission removed — form now POSTs directly to Formspree, which emails hello@happylobsterchicago.com.
+  // Mailto submission: gathers form fields and opens the user's email client with a pre-filled message
+  function submitInquiry(e) {
+    e.preventDefault();
+    const get = id => (document.getElementById(id) || {}).value || '';
+    const name    = get('f-name').trim();
+    const company = get('f-company').trim();
+    const email   = get('f-email').trim();
+    const phone   = get('f-phone').trim();
+    const date    = get('f-date').trim();
+    const guests  = get('f-guests').trim();
+    const type    = get('f-type').trim();
+    const budget  = get('f-budget').trim();
+    const venue   = get('f-venue').trim();
+    const notes   = get('f-notes').trim();
+
+    const subject = `Bar inquiry — ${name || 'new lead'}${company ? ' / ' + company : ''}`;
+    const bodyLines = [
+      `Name: ${name}`,
+      company && `Company / Host: ${company}`,
+      `Email: ${email}`,
+      phone && `Phone: ${phone}`,
+      date && `Event date: ${date}`,
+      guests && `Guest count: ${guests}`,
+      type && `Event type: ${type}`,
+      budget && `Budget range: ${budget}`,
+      venue && `Venue / address: ${venue}`,
+      notes && `\nNotes:\n${notes}`,
+    ].filter(Boolean);
+
+    const body = bodyLines.join('\n');
+    const to = 'hello@happylobsterchicago.com';
+    window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    return false;
+  }
+</script>
+
+</body>
+</html>
 </script>
 
 </body>
