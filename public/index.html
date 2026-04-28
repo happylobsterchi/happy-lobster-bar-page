@@ -198,8 +198,9 @@
       </div>
     </div>
 
-    <!-- Inquiry form — uses mailto: to open the user's email client with pre-filled body -->
-    <form class="form dirA" id="inquiry-form" onsubmit="return submitInquiry(event)">
+    <!-- Inquiry form — submits to Formspree, which emails hello@happylobsterchicago.com -->
+    <form class="form dirA" id="inquiry-form" action="https://formspree.io/f/mwvayqvv" method="POST">
+      <input type="hidden" name="_subject" value="New Bar inquiry from happylobsterchicago.com" />
       <div class="form-grid">
         <div class="field"><label>Your name</label><input type="text" name="name" id="f-name" placeholder="Alex Thompson" required /></div>
         <div class="field"><label>Company / Host</label><input type="text" name="company" id="f-company" placeholder="Acme Inc." /></div>
@@ -268,44 +269,7 @@
     return false;
   }
 
-  // Mailto submission: gathers form fields and opens the user's email client with a pre-filled message
-  function submitInquiry(e) {
-    e.preventDefault();
-    const get = id => (document.getElementById(id) || {}).value || '';
-    const name    = get('f-name').trim();
-    const company = get('f-company').trim();
-    const email   = get('f-email').trim();
-    const phone   = get('f-phone').trim();
-    const date    = get('f-date').trim();
-    const guests  = get('f-guests').trim();
-    const type    = get('f-type').trim();
-    const budget  = get('f-budget').trim();
-    const venue   = get('f-venue').trim();
-    const notes   = get('f-notes').trim();
-
-    const subject = `Bar inquiry — ${name || 'new lead'}${company ? ' / ' + company : ''}`;
-    const bodyLines = [
-      `Name: ${name}`,
-      company && `Company / Host: ${company}`,
-      `Email: ${email}`,
-      phone && `Phone: ${phone}`,
-      date && `Event date: ${date}`,
-      guests && `Guest count: ${guests}`,
-      type && `Event type: ${type}`,
-      budget && `Budget range: ${budget}`,
-      venue && `Venue / address: ${venue}`,
-      notes && `\nNotes:\n${notes}`,
-    ].filter(Boolean);
-
-    const body = bodyLines.join('\n');
-    const to = 'hello@happylobsterchicago.com';
-    window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    return false;
-  }
-</script>
-
-</body>
-</html>
+  // Mailto submission removed — form now POSTs directly to Formspree, which emails hello@happylobsterchicago.com.
 </script>
 
 </body>
