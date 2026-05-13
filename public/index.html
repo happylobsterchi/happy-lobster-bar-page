@@ -5,6 +5,15 @@
 <title>The Bar · Happy Lobster</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="Buy the bar. Be a hero. Chicago's only live lobster-roll bar, rolled up to your space — premium Maine lobster, buttered brioche, zero pretense." />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18130719971"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18130719971');
+  gtag('config', 'G-P37H96J89Z');
+</script>
 <link rel="icon" href="assets/happy-claw.png" />
 <link rel="stylesheet" href="colors_and_type.css" />
 <link rel="stylesheet" href="bar.css" />
@@ -161,7 +170,7 @@
       </div>
       <div class="quote-card">
         <div class="mark">"</div>
-        <div class="body">Happy Lobster to cater for my team’s holiday party. Everyone insisted that it will have to be an annual (or more often!) holiday party tradition!</div>
+        <div class="body">Happy Lobster to cater for my team's holiday party. Everyone insisted that it will have to be an annual (or more often!) holiday party tradition!</div>
         <div class="by">
           <div class="avatar">LH</div>
           <div>
@@ -192,7 +201,7 @@
       <p>Tell us about your event. We'll come back with a quote, a menu, and a plan — usually before the end of the day.</p>
       <div class="contacts">
      
-        <div class="row"><span class="lbl">Email</span>hello@happylobsterchicago.com</div>
+        <div class="row"><span class="lbl">Email</span><a href="mailto:hello@happylobsterchicago.com" onclick="gtag('event', 'conversion', {'send_to': 'AW-18130719971/c4l8CNia1qwcEOOps8VD'});">hello@happylobsterchicago.com</a></div>
 
         <div class="row"><span class="lbl">Lead time</span>1 week preferred</div>
       </div>
@@ -269,7 +278,10 @@
     return false;
   }
 
-  // Mailto submission removed — form now POSTs directly to Formspree, which emails hello@happylobsterchicago.com.
+  // Fire Google Ads conversion when form is submitted
+  document.getElementById('inquiry-form').addEventListener('submit', function() {
+    gtag('event', 'conversion', {'send_to': 'AW-18130719971/7KMLCNKa1qwcEOOps8VD'});
+  });
 </script>
 
 </body>
